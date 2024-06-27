@@ -1,13 +1,13 @@
-import logo from './logo.svg';
+import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import "./styles/Landing.css"
-
-import Calendar from "./components/Calendar"
+import Landing from "./components/Landing"
 function App() {
   return (
-    <div className = "center container">
-      <Calendar month = {1} year = {2024}/>
-    </div>
-    
+    <BrowserRouter>
+      <Routes>
+        <Route path = "/" element={<Landing/>}/>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

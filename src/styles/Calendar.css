@@ -10,6 +10,9 @@
 
 .calendar-date-inactive{
     color: grey;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    font-size: 3vmin;
 }
 
 .calendar-cell{
@@ -26,7 +29,7 @@
 
 
 .calendar-dayofweek{
-    background-color: #ced4da;
+    background-color: lightblue;
 }
 .calendar-date:hover, .calendar-date-inactive:hover{
     cursor: pointer;
@@ -53,10 +56,17 @@
 
 .calendar-month{
     font-weight: bold;
-    font-size: 3vmin;
+}
+
+.calendar-header-item{
+    font-size: 5vmin;
+    display: flex;
+    border-radius: 5px;
+    border: 1px solid black;
+    padding: 0 1rem;
+    cursor: pointer;
 }
 
 .calendar-year{
     font-style: italic;
-    font-size: 3vmin;
 }

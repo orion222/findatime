@@ -1,53 +1,16 @@
 import "../styles/Calendar.css";
-
+import { useMemo } from "react";
 /**
  * Returns a calendar.
  *
  * Expects the following parameters to be passed in through props
- * @param {int} month (1 to 12)
+ * @param {int} month (0 to 11)
  * @param {int} year
  * @returns <Calendar/>
  */
 
 export default function Calendar(props) {
-  const makeCalendar = () => {
-    const date = new Date(props.year, props.month - 1, 1);
-    let ret = [];
-    let weeks = ["S", "M", "T", "W", "T", "F", "S"];
-    // day of week headers
-    for (const day of weeks)
-      ret.push(
-        <div className="calendar-dayofweek calendar-cell center"> {day} </div>
-      );
-
-    // days of previous month
-    let t = new Date(props.year, props.month, 0).getDate();
-    let n = date.getDay();
-    console.log(n);
-    for (let i = 0; i < n; i++)
-      ret.push(
-        <div
-          className="calendar-cell calendar-date-inactive"
-          dow={i}
-          day={t - n + 1 + i}
-          month={((props.month - 2) % 12) + 1}
-        >
-          {t - n + 1 + i}
-        </div>
-      );
-
-    // days of the current month
-    for (let i = 1; i <= t; i++)
-      ret.push(<div className="calendar-date calendar-cell"> {i} </div>);
-
-    // fill in the rest of the calendar
-    let k = 7 - (ret.length % 7);
-    for (let i = 1; i <= k; i++)
-      ret.push(<div className="calendar-cell"></div>);
-
-    return ret;
-  };
-  let months = [
+  const months = [
     "January",
     "February",
     "March",
@@ -61,13 +24,92 @@ export default function Calendar(props) {
     "November",
     "December",
   ];
+
+  const makeCalendar = () => {
+    const date = new Date(props.year, props.month, 1);
+    let ret = [];
+    let weeks = ["S", "M", "T", "W", "T", "F", "S"];
+    let n = date.getDay();
+    let t = new Date(props.year, props.month + 1, 0).getDate();
+    let k = 7 - ((t + n) % 7);
+
+    console.log(props.month);
+    console.log(mod(props.month - 1, 12));
+    // day of week headers
+    for (const day of weeks)
+      ret.push(
+        <div className="calendar-dayofweek calendar-cell center"> {day} </div>
+      );
+    if (n > 0)
+      ret.push(
+        <div
+          className="calendar-date-inactive center"
+          style={{ gridColumn: `span ${n}` }}
+          onClick={() => {
+            if (props.month == 0){
+              props.setArgs({
+                month: 11,
+                year: props.year - 1
+              })
+            }
+            else props.setArgs({
+              month: props.month - 1,
+              year: props.year
+            })
+          }}
+        >
+          {n < 3
+            ? months[mod(props.month - 1, 12)].substring(0, 3).toUpperCase()
+            : months[mod(props.month - 1, 12)].toUpperCase()}
+        </div>
+      );
+
+    // days of the current month
+    for (let i = 1; i <= t; i++)
+      ret.push(<div className="calendar-date calendar-cell"> {i} </div>);
+
+    // fill in the rest of the calendar with blanks
+    ret.push(
+      <div
+        className="calendar-date-inactive center"
+        style={{ gridColumn: `span ${k}` }}
+        onClick={() => {
+          if (props.month == 11){
+            props.setArgs({
+              month: 0,
+              year: props.year + 1
+            })
+          }
+          else props.setArgs({
+            month: props.month + 1,
+            year: props.year
+          })
+        }}
+      >
+        {k < 3
+          ? months[(props.month + 1) % 12].substring(0, 3).toUpperCase()
+          : months[(props.month + 1) % 12].toUpperCase()}
+      </div>
+    );
+
+    return ret;
+  };
+  // only need to recompute the calendar if the month / year changes
+  const calendar = useMemo(() => makeCalendar(), [props.month, props.year]);
   return (
     <div className="calendar-container">
       <div className="calendar-header">
-        <div className="calendar-month">{months[props.month - 1]}</div>
-        <div className="calendar-year">{props.year}</div>
+        <div className="calendar-month calendar-header-item">
+          {months[props.month]}
+        </div>
+        <div className="calendar-year calendar-header-item">{props.year}</div>
       </div>
-      <div className="calendar-grid">{makeCalendar()}</div>
+      <div className="calendar-grid">{calendar}</div>
     </div>
   );
+}
+
+// for some reason, javascript mod is not well defined for negatives
+function mod(n, m) {
+  return ((n % m) + m) % m;
 }
