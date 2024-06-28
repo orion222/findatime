@@ -1,4 +1,5 @@
 import "../styles/Calendar.css";
+import SplitDate from "./SplitDate"
 import { useMemo } from "react";
 /**
  * Returns a calendar.
@@ -108,7 +109,7 @@ export default function Calendar(props) {
         </div>
         <div className="calendar-year calendar-header-item">{props.year}</div>
       </div>
-      <div className="calendar-grid">{calendar}</div>
+      <div className="calendar-grid">{calendar} <SplitDate className = "calendar-cell" day1 = {29} day2={30}/></div>
     </div>
   );
 }
