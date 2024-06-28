@@ -40,36 +40,40 @@ export default function Calendar(props) {
       ret.push(
         <div className="calendar-dayofweek calendar-cell center"> {day} </div>
       );
-    if (n > 0)
-      ret.push(
-        <div
-          className="calendar-date-inactive center"
-          style={{ gridColumn: `span ${n}` }}
-          onClick={() => {
-            if (props.month == 0){
-              props.setArgs({
-                month: 11,
-                year: props.year - 1
-              })
-            }
-            else props.setArgs({
-              month: props.month - 1,
-              year: props.year
+    ret.push(
+      n > 0 && 
+      <div
+        className="calendar-date-inactive center"
+        style={{ gridColumn: `span ${n}` }}
+        onClick={() => {
+          if (props.month == 0){
+            props.setArgs({
+              month: 11,
+              year: props.year - 1
             })
-          }}
-        >
-          {n < 3
-            ? months[mod(props.month - 1, 12)].substring(0, 3).toUpperCase()
-            : months[mod(props.month - 1, 12)].toUpperCase()}
-        </div>
-      );
+          }
+          else props.setArgs({
+            month: props.month - 1,
+            year: props.year
+          })
+        }}
+      >
+        {n < 3
+          ? months[mod(props.month - 1, 12)].substring(0, 3).toUpperCase()
+          : months[mod(props.month - 1, 12)].toUpperCase()}
+      </div>
+    );
 
     // days of the current month
     for (let i = 1; i <= t; i++)
       ret.push(<div className="calendar-date calendar-cell"> {i} </div>);
 
     // fill in the rest of the calendar with blanks
+    if (k < 7){
+      
+    }
     ret.push(
+      (k < 7) && 
       <div
         className="calendar-date-inactive center"
         style={{ gridColumn: `span ${k}` }}
