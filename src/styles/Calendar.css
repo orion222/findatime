@@ -2,7 +2,6 @@
 .calendar-container{
     border-top: 1px solid black;
     border-left: 1px solid black;
-
 }
 .calendar-date{
     background-color: #e9ecef;
@@ -75,26 +74,45 @@
     overflow: hidden;
     position: relative;
     cursor: pointer;
+    background-color: #e9ecef;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
 }
 
-.splitDate-lower{
-    border: 1px solid black;
+.splitDate-date{
     position: absolute;
     transform: rotate(45deg);
     width: 100%;
     height: 150%;
-    top: 7%;
-    left: 39%;
-    background-color: transparent;
     z-index: 1;
 }
+
+.splitDate-lower{
+    border: 1px solid black;
+    top: 7%;
+    left: 39%;
+}
+
+.splitDate-upper{
+    bottom: 7%;
+    right: 39%;
+}
+
 .splitDate-day1{
     position: absolute;
     padding: 3px;
-  }
+}
+.splitDate-upper:hover + .splitDate-day1 {
+    font-weight: bold;
+}
+
 .splitDate-day2{
     position: absolute;
     right: 0;
     bottom: 0;
     padding: 3px;
-  }
+}
+
+.splitDate-lower:hover + .splitDate-day2 {
+    font-weight: bold;
+}

@@ -30,17 +30,23 @@ export default function Calendar(props) {
     const date = new Date(props.year, props.month, 1);
     let ret = [];
     let weeks = ["S", "M", "T", "W", "T", "F", "S"];
+
+    // what day the first of the month starts on (0-6)
     let n = date.getDay();
+
+    // # of days in month
     let t = new Date(props.year, props.month + 1, 0).getDate();
+
+    // # of days leftover in 5 weeks that are not in current month
     let k = 7 - ((t + n) % 7);
 
-    console.log(props.month);
-    console.log(mod(props.month - 1, 12));
     // day of week headers
     for (const day of weeks)
       ret.push(
         <div className="calendar-dayofweek calendar-cell center"> {day} </div>
       );
+
+    // the previous month, if there are any spare days 
     ret.push(
       n > 0 && 
       <div
@@ -65,16 +71,32 @@ export default function Calendar(props) {
       </div>
     );
 
-    // days of the current month
-    for (let i = 1; i <= t; i++)
+    // build the first 4 rows
+    for (let i = 1; i <= 28-n; i++)
       ret.push(<div className="calendar-date calendar-cell"> {i} </div>);
+    
+    let nextDay = 28 - n + 1;
 
-    // fill in the rest of the calendar with blanks
-    if (k < 7){
-      
+    // if we need to add splitDates
+    let v = 0;
+    if (n + t > 35){
+      // # of splitDates
+      v = (n + t) % 35;
+      for (let i = 0; i < v; i++){
+        ret.push(<SplitDate top = {nextDay} bottom = {nextDay + 7}/>);
+        nextDay++;
+      }
     }
+ 
+    // fill in the rest of the calendar
+    for (let i = nextDay; i <= t-v; i++){
+      ret.push(<div className = "calendar-date calendar-cell"> {i} </div>)
+    }
+    
+  
+    // fill in the rest of the calendar with blanks
     ret.push(
-      (k < 7) && 
+      (n+t<35) && 
       <div
         className="calendar-date-inactive center"
         style={{ gridColumn: `span ${k}` }}
@@ -109,7 +131,7 @@ export default function Calendar(props) {
         </div>
         <div className="calendar-year calendar-header-item">{props.year}</div>
       </div>
-      <div className="calendar-grid">{calendar} <SplitDate className = "calendar-cell" day1 = {29} day2={30}/></div>
+      <div className="calendar-grid">{calendar}</div>
     </div>
   );
 }

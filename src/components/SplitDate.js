@@ -1,12 +1,9 @@
 import "../styles/Calendar.css";
-import { useRef } from 'react'
 export default function SplitDate(props) {
 
-    const bottom = useRef(false);
 
     function handleClick1(){
-        if (!bottom.current) console.log("clicked 1");
-        bottom.current = false;
+      console.log("clicked 1");
     }
 
     // clicking the bottom date will also call the eventHandler
@@ -15,13 +12,13 @@ export default function SplitDate(props) {
     // from firing 
     function handleClick2(){
         console.log("clicked 2");
-        bottom.current = true;
     }
   return (
-    <div className={"splitDate-container " + props.className} onClick = {() => handleClick1()}>
-      <div className="splitDate-day1"> {props.day1} </div>
-      <div className="splitDate-lower" onClick = {() => handleClick2()}></div>
-      <div className="splitDate-day2">{props.day2}</div>
+    <div className={"splitDate-container " + props.className}>
+      <div className="splitDate-upper splitDate-date" onClick = {() => handleClick1()}></div>
+      <div className="splitDate-day1"> {props.top} </div>
+      <div className="splitDate-lower splitDate-date" onClick = {() => handleClick2()}></div>
+      <div className="splitDate-day2">{props.bottom}</div>
     </div>
   );
 }

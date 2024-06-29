@@ -4,8 +4,8 @@ export default function Landing(){
     const today = new Date();
     
     const [args, setArgs] = useState({
-      month: today.getMonth(),
-      year: today.getFullYear()
+      month: 0,
+      year: 2025
     })
     return (
         <div className = "center container">
