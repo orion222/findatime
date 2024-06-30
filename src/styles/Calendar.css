@@ -31,10 +31,15 @@
 .calendar-dayofweek{
     background-color: lightblue;
 }
-.calendar-date:hover, .calendar-date-inactive:hover{
+.calendar-date-inactive:hover{
     cursor: pointer;
     font-weight: bold;
 }
+
+.calendar-date:hover:not(:has(.calendar-arrow:hover))  {
+    cursor: pointer;
+    font-weight: bold;
+  }
 
 .calendar-grid{
     display: inline-grid;
