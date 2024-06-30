@@ -62,6 +62,7 @@
 
 .calendar-month{
     font-weight: bold;
+    cursor: pointer;
 }
 
 .calendar-header-item{
@@ -70,11 +71,11 @@
     border-radius: 5px;
     border: 1px solid black;
     padding: 0 1rem;
-    cursor: pointer;
 }
 
 .calendar-year{
     font-style: italic;
+    
 }
 
 .splitDate-container{
@@ -147,4 +148,17 @@
 
 .calendar-week{
     display: flex;
+}
+
+@media screen and (min-width: 1500px){
+    .calendar-cell{
+        width: 80px;
+        height: 80px;
+        font-size: 2vmin;
+    }
+
+    .calendar-arrow{
+        height: 20px;
+        width: 20px;
+    }
 }

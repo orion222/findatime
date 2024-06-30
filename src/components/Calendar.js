@@ -1,6 +1,7 @@
 import "../styles/Calendar.css";
 import SplitDate from "./SplitDate";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+import Dropdown from "./Dropdown"
 /**
  * Returns a calendar.
  *
@@ -12,30 +13,21 @@ import { useMemo } from "react";
 
 export default function Calendar(props) {
 
+  const [dropdown, setDropdown] = useState(false);
   const prevMonth = () => {
-    if (props.month == 0) {
-      props.setArgs({
-        month: 11,
-        year: props.year - 1,
-      });
+    if (props.month === 0) {
+      props.setMonth(11);
+      props.setYear(props.year - 1);
     } else
-      props.setArgs({
-        month: props.month - 1,
-        year: props.year,
-      });
+      props.setMonth(props.month - 1);
   };
 
   const nextMonth = () => {
-    if (props.month == 11) {
-      props.setArgs({
-        month: 0,
-        year: props.year + 1,
-      });
+    if (props.month === 11) {
+      props.setMonth(0);
+      props.setYear(props.year + 1);
     } else
-      props.setArgs({
-        month: props.month + 1,
-        year: props.year,
-      });
+      props.setMonth(props.month + 1);
   };
 
 
@@ -66,7 +58,7 @@ export default function Calendar(props) {
     // build the first 4 rows
     ret.push(<div className = "calendar-date calendar-cell" id = {1}>
       1 
-      {n == 0 ? <div className="calendar-prev calendar-arrow" onClick = {prevMonth} /> : ""}
+      {n === 0 ? <div className="calendar-prev calendar-arrow" onClick = {prevMonth} /> : ""}
      </div>);
     for (let i = 2; i <= 28 - n; i++)
       ret.push(<div className="calendar-date calendar-cell" id = {i}> {i} </div>);
@@ -79,7 +71,7 @@ export default function Calendar(props) {
       // # of splitDates
       v = (n + t) % 35;
       for (let i = 0; i < v; i++) {
-        ret.push(<SplitDate top={nextDay} bottom={nextDay + 7} />);
+        ret.push(<SplitDate top={nextDay} bottom={nextDay + 7} class = "calendar-cell" />);
         nextDay++;
       }
     }
@@ -112,8 +104,9 @@ export default function Calendar(props) {
   return (
     <div className="calendar-container">
       <div className="calendar-header">
-        <div className="calendar-month calendar-header-item">
+        <div className="calendar-month calendar-header-item" onClick = {() => setDropdown(true)}>
           {months[props.month]}
+          {dropdown && <Dropdown setMonth = {props.setMonth} setDropdown = {setDropdown}/>}
         </div>
         <div className="calendar-year calendar-header-item">{props.year}</div>
       </div>

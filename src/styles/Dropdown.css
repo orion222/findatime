@@ -1,0 +1,11 @@
+
+.dropdown-container{
+    width: 100%;
+    border-radius: 3px;
+    background-color: #e9ecef;
+}
+
+.dropdown-item{
+    font-size: 2vmin;
+    font-family:'Trebuchet MS', sans-serif;
+}
