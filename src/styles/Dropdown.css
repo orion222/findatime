@@ -1,11 +1,27 @@
 
 .dropdown-container{
-    width: 100%;
-    border-radius: 3px;
-    background-color: #e9ecef;
+    width: 150px;
+    border-radius: 5px;
+    position: absolute;
+    top: 110%;
+    border: 1px solid black;
+    left: 0;
+    z-index: 1;
+    overflow: hidden;
 }
+
 
 .dropdown-item{
     font-size: 2vmin;
     font-family:'Trebuchet MS', sans-serif;
+    padding: 0.25rem 0.5rem;
+    background-color: #ced4da;
+}
+
+.dropdown-item-active{
+    background-color: lightgoldenrodyellow;
+}
+
+.dropdown-item:hover{
+    background-color: #f8f9fa;
 }

@@ -65,12 +65,18 @@
     cursor: pointer;
 }
 
+.calendar-month:hover{
+    background-color: lightyellow;
+}
+
 .calendar-header-item{
     font-size: 5vmin;
     display: flex;
     border-radius: 5px;
     border: 1px solid black;
     padding: 0 1rem;
+    position: relative;
+    box-sizing: padding-box;
 }
 
 .calendar-year{
