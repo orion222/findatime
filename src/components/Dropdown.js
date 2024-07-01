@@ -23,12 +23,11 @@ export default function Dropdown(props) {
   function closeContainer(e){
     if (props.dropdown) {
         e.preventDefault();
-        if (document.getElementById('dropdown').contains(e.target)){
-          e.stopPropagation();
-        } else{
+        if (!document.getElementById('dropdown').contains(e.target)) {
           props.setDropdown(false);
         }
-    }   
+        e.stopPropagation();
+      }   
   };
 
   useEffect(() => {
