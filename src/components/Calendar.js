@@ -1,6 +1,6 @@
 import "../styles/Calendar.css";
 import SplitDate from "./SplitDate";
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState } from "react";
 import Dropdown from "./Dropdown";
 /**
  * Returns a calendar.
@@ -142,8 +142,8 @@ export default function Calendar(props) {
         <div className="calendar-year calendar-header-item">{props.year}</div>
       </div>
       <div className="calendar-week">
-        {week.map((day) => (
-          <div className="calendar-dayofweek calendar-cell center"> {day} </div>
+        {week.map((day, idx) => (
+          <div className="calendar-dayofweek calendar-cell center" key = {idx}> {day} </div>
         ))}
       </div>
       <div className="calendar-grid">
