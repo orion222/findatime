@@ -125,19 +125,20 @@ export default function Calendar(props) {
   return (
     <div className="calendar-container">
       <div className="calendar-header">
-        <div
-          className="calendar-month calendar-header-item"
-          onClick={() => setDropdown(true)}
-        >
-          {months[props.month]}
-          {dropdown && (
-            <Dropdown
-              month={props.month}
-              setMonth={props.setMonth}
-              setDropdown={setDropdown}
-            />
-          )}
-        </div>
+          <div
+            className="calendar-month calendar-header-item"
+            onClick={(e) => {setDropdown(true); e.stopPropagation()}}
+          >
+            {months[props.month]}
+            {dropdown && (
+                <Dropdown
+                  month={props.month}
+                  setMonth={props.setMonth}
+                  setDropdown={setDropdown}
+                  dropdown={dropdown}
+                />
+              )}
+          </div>
         <div className="calendar-year calendar-header-item">{props.year}</div>
       </div>
       <div className="calendar-week">
