@@ -116,7 +116,7 @@
 .splitDate-day1{
     position: absolute;
     padding: 3px;
-    z-index: 1;
+    pointer-events: none;
 }
 
 .splitDate-day2{
@@ -124,10 +124,7 @@
     right: 0;
     bottom: 0;
     padding: 3px;
-    z-index: 1;
-}
-.splitDate-day1:hover + .splitDate-upper, .splitDate-day2:hover + .splitDate-lower{
-    background-color: #fefae0;
+    pointer-events: none;
 }
 
 

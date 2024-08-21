@@ -3,7 +3,7 @@ import SplitDate from "./SplitDate";
 import { useMemo, useState } from "react";
 import Dropdown from "./Dropdown";
 /**
- * Returns a calendar.
+ * Returns a calendar built on the following parameters.
  *
  * Expects the following parameters to be passed in through props
  * @param {int} month (0 to 11)
@@ -26,6 +26,7 @@ export default function Calendar(props) {
       props.setYear(props.year + 1);
     } else props.setMonth(props.month + 1);
   };
+
 
   // what day the first of the month starts on (0-6)
   let n = new Date(props.year, props.month, 1).getDay();
