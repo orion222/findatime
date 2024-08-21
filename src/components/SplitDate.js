@@ -15,10 +15,10 @@ export default function SplitDate(props) {
     }
   return (
     <div className={"splitDate-container " + props.class}>
-      <div className="splitDate-upper splitDate-date" id = {props.top} onClick = {() => handleClick1()}></div>
       <div className="splitDate-day1"> {props.top} </div>
-      <div className="splitDate-lower splitDate-date" id = {props.bottom} onClick = {() => handleClick2()}></div>
+      <div className="splitDate-upper splitDate-date" id = {props.top} onClick = {() => handleClick1()}></div>
       <div className="splitDate-day2">{props.bottom}</div>
+      <div className="splitDate-lower splitDate-date" id = {props.bottom} onClick = {() => handleClick2()}></div>
     </div>
   );
 }

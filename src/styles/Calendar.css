@@ -38,7 +38,7 @@
 
 .calendar-date:hover:not(:has(.calendar-arrow:hover))  {
     cursor: pointer;
-    font-weight: bold;
+    background-color: #fefae0;
   }
 
 .calendar-grid{
@@ -98,9 +98,10 @@
     transform: rotate(45deg);
     width: 100%;
     height: 150%;
-    z-index: 1;
 }
-
+.splitDate-date:hover{
+    background-color: #fefae0;
+}
 .splitDate-lower{
     border: 1px solid black;
     top: 7%;
@@ -115,9 +116,7 @@
 .splitDate-day1{
     position: absolute;
     padding: 3px;
-}
-.splitDate-upper:hover + .splitDate-day1 {
-    font-weight: bold;
+    z-index: 1;
 }
 
 .splitDate-day2{
@@ -125,11 +124,13 @@
     right: 0;
     bottom: 0;
     padding: 3px;
+    z-index: 1;
+}
+.splitDate-day1:hover + .splitDate-upper, .splitDate-day2:hover + .splitDate-lower{
+    background-color: #fefae0;
 }
 
-.splitDate-lower:hover + .splitDate-day2 {
-    font-weight: bold;
-}
+
 
 .calendar-arrow{
     background-image: url('../arrow-right.svg');
