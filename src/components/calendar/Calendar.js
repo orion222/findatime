@@ -1,7 +1,8 @@
-import "../styles/Calendar.css";
+import "../../styles/calendar/Calendar.css";
 import SplitDate from "./SplitDate";
 import { useMemo, useState } from "react";
 import Dropdown from "./Dropdown";
+import Day from "./Day";
 /**
  * Returns a calendar built on the following parameters.
  *
@@ -55,22 +56,20 @@ export default function Calendar(props) {
 
     // build the first 4 rows
     ret.push(
-      <div className="calendar-date calendar-cell" id={1} key={1}>
-        1
+      <Day day = {1}>
+        
         {n === 0 ? (
           <div className="calendar-prev calendar-arrow" onClick={prevMonth} />
         ) : (
           ""
         )}
-      </div>
+      </Day>
     );
-    for (let i = 2; i <= 28 - n; i++)
+    for (let i = 2; i <= 28 - n; i++){
       ret.push(
-        <div className="calendar-date calendar-cell" id={i} key={i}>
-          {" "}
-          {i}{" "}
-        </div>
+        <Day day = {i}/>
       );
+    }
 
     let nextDay = 28 - n + 1;
 
@@ -85,7 +84,6 @@ export default function Calendar(props) {
             top={nextDay}
             bottom={nextDay + 7}
             key={nextDay + nextDay + 7}
-            class="calendar-cell"
           />
         );
         nextDay++;
@@ -95,10 +93,7 @@ export default function Calendar(props) {
     // fill in the rest of the calendar
     for (let i = nextDay; i <= t - v; i++) {
       ret.push(
-        <div className="calendar-date calendar-cell" id={i} key={i}>
-          {" "}
-          {i}{" "}
-        </div>
+        <Day day = {i}/>
       );
     }
 
@@ -142,12 +137,10 @@ export default function Calendar(props) {
           </div>
         <div className="calendar-year calendar-header-item">{props.year}</div>
       </div>
-      <div className="calendar-week">
+      <div className="calendar-grid">
         {week.map((day, idx) => (
           <div className="calendar-dayofweek calendar-cell center" key = {idx}> {day} </div>
         ))}
-      </div>
-      <div className="calendar-grid">
         {calendar}
         {n + t >= 35 ? (
           <div className="calendar-next calendar-arrow" onClick={nextMonth} />
