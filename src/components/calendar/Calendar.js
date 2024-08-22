@@ -10,6 +10,9 @@ import Day from "./Day";
  * @param {int} month (0 to 11)
  * @param {int} year
  * @returns <Calendar/>
+ * 
+ * Notes: 
+ * Change width/height of class 'calendar-grid' to do any media query resizing
  */
 
 export default function Calendar(props) {

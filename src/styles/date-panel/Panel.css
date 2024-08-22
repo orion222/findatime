@@ -1,0 +1,15 @@
+
+.panel-container{
+    border-radius: 1.5rem;
+    padding: 1rem;
+    box-sizing: border-box;
+    border: 1px solid black;
+    height: 100%;
+    width: 60%;
+    background-color: #e9ecef;
+}
+.panel-title{
+    font-size: clamp(1rem, 4vmin, 2rem);
+    font-weight: bold;
+    text-align: center;
+}
