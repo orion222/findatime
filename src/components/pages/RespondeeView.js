@@ -8,14 +8,14 @@ export default function RespondeeView(props){
     const today = new Date();
     const [month, setMonth] = useState(today.getMonth());
     const [year, setYear] = useState(today.getFullYear());
-    const [dateClicked, setDateClicked] = useState(false);
+    const [day, setDay] = useState(-1);
     return (
         <div className = "r-container">
           <div className = "cal-grid-item">
-            <Calendar month = {month} year = {year} setMonth = {setMonth} setYear = {setYear} setDateClicked = {setDateClicked}/>
+            <Calendar month = {month} year = {year} setMonth = {setMonth} setYear = {setYear} setDay = {setDay}/>
           </div>
           <div className = "date-grid-item">
-            <Panel dateClicked = {dateClicked} setDateClicked = {setDateClicked}/>
+            <Panel month = {month} day = {day}/>
           </div>
       </div>
     )

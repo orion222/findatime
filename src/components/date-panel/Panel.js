@@ -6,7 +6,7 @@ export default function Panel(props){
     
     return (
         <div className = "panel-container">
-            {props.dateClicked ? <TimeBookingWindow/>: <AvailabilityWindow/>}
+            {props.day > 0 ? <TimeBookingWindow month = {props.month} day = {props.day}/>: <AvailabilityWindow/>}
         </div>
     )
 

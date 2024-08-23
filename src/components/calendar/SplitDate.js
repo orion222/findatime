@@ -3,6 +3,7 @@ export default function SplitDate(props) {
 
 
   function getDay(d){
+    props.setDay(d);
     console.log(d);
   }
   return (

@@ -22,6 +22,7 @@ export default function Calendar(props) {
       props.setMonth(11);
       props.setYear(props.year - 1);
     } else props.setMonth(props.month - 1);
+    props.setDay(-1);
   };
 
   const nextMonth = () => {
@@ -29,6 +30,7 @@ export default function Calendar(props) {
       props.setMonth(0);
       props.setYear(props.year + 1);
     } else props.setMonth(props.month + 1);
+    props.setDay(-1);
   };
 
 
@@ -59,7 +61,7 @@ export default function Calendar(props) {
 
     // build the first 4 rows
     ret.push(
-      <Day day = {1}>
+      <Day day = {1} setDay = {props.setDay}>
         
         {n === 0 ? (
           <div className="calendar-prev calendar-arrow" onClick={prevMonth} />
@@ -70,7 +72,7 @@ export default function Calendar(props) {
     );
     for (let i = 2; i <= 28 - n; i++){
       ret.push(
-        <Day day = {i}/>
+        <Day day = {i} setDay = {props.setDay}/>
       );
     }
 
@@ -87,6 +89,7 @@ export default function Calendar(props) {
             top={nextDay}
             bottom={nextDay + 7}
             key={nextDay + nextDay + 7}
+            setDay = {props.setDay}
           />
         );
         nextDay++;
@@ -96,7 +99,7 @@ export default function Calendar(props) {
     // fill in the rest of the calendar
     for (let i = nextDay; i <= t - v; i++) {
       ret.push(
-        <Day day = {i}/>
+        <Day day = {i} setDay = {props.setDay}/>
       );
     }
 
@@ -133,6 +136,7 @@ export default function Calendar(props) {
                 <Dropdown
                   month={props.month}
                   setMonth={props.setMonth}
+                  setDay={props.setDay}
                   setDropdown={setDropdown}
                   dropdown={dropdown}
                 />

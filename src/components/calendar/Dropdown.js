@@ -19,6 +19,7 @@ export default function Dropdown(props) {
   const handleClick = (idx) => {
     props.setDropdown(false);
     props.setMonth(idx);
+    props.setDay(-1);
   }
   function closeContainer(e){
     if (props.dropdown) {
