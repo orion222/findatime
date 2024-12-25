@@ -3,6 +3,7 @@ import SplitDate from "./SplitDate";
 import { useMemo, useState } from "react";
 import Dropdown from "./Dropdown";
 import Day from "./Day";
+
 /**
  * Returns a calendar built on the following parameters.
  *
@@ -40,7 +41,6 @@ export default function Calendar(props) {
   let t = new Date(props.year, props.month + 1, 0).getDate();
   // # of days leftover in 5 weeks that are not in current month
   let k = 7 - ((t + n) % 7);
-
   const makeCalendar = () => {
     let ret = [];
     // the previous month, if there are any spare days
@@ -61,13 +61,7 @@ export default function Calendar(props) {
 
     // build the first 4 rows
     ret.push(
-      <Day day = {1} setDay = {props.setDay}>
-        
-        {n === 0 ? (
-          <div className="calendar-prev calendar-arrow" onClick={prevMonth} />
-        ) : (
-          ""
-        )}
+      <Day day = {1} setDay = {props.setDay} children = {n === 0 && <div className="calendar-prev calendar-arrow" onClick={prevMonth} />}>
       </Day>
     );
     for (let i = 2; i <= 28 - n; i++){
@@ -149,11 +143,9 @@ export default function Calendar(props) {
           <div className="calendar-dayofweek calendar-cell center" key = {idx}> {day} </div>
         ))}
         {calendar}
-        {n + t >= 35 ? (
+        {n + t >= 35 &&
           <div className="calendar-next calendar-arrow" onClick={nextMonth} />
-        ) : (
-          ""
-        )}
+        }
       </div>
     </div>
   );

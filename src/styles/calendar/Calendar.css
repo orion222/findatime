@@ -140,14 +140,15 @@
     position: absolute;
     padding: 2px;
 }
+
 .calendar-next{
     bottom: 0;
     right: 0;
 }
 .calendar-prev{
-    transform: rotateZ(180deg);
     bottom: 0;
-    z-index: 1;
+    left: 0;
+    transform: rotate(180deg);
 }
 .calendar-arrow:hover{
     opacity: 0.25;

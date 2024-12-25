@@ -3,7 +3,7 @@
 export default function TimeBookingWindow(props){
 
     return (
-        <h1>{months[props.month] + " " + props.day}</h1>
+        <h1 style={{textAlign: "center"}}>{months[props.month] + " " + props.day}</h1>
     )
 }
 const months = [
