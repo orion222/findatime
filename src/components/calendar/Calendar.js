@@ -61,12 +61,12 @@ export default function Calendar(props) {
 
     // build the first 4 rows
     ret.push(
-      <Day day = {1} setDay = {props.setDay} children = {n === 0 && <div className="calendar-prev calendar-arrow" onClick={prevMonth} />}>
+      <Day key = {1} day = {1} setDay = {props.setDay} children = {n === 0 && <div className="calendar-prev calendar-arrow" onClick={prevMonth} />}>
       </Day>
     );
     for (let i = 2; i <= 28 - n; i++){
       ret.push(
-        <Day day = {i} setDay = {props.setDay}/>
+        <Day key = {i} day = {i} setDay = {props.setDay}/>
       );
     }
 
@@ -93,7 +93,7 @@ export default function Calendar(props) {
     // fill in the rest of the calendar
     for (let i = nextDay; i <= t - v; i++) {
       ret.push(
-        <Day day = {i} setDay = {props.setDay}/>
+        <Day key = {i} day = {i} setDay = {props.setDay}/>
       );
     }
 
