@@ -1,27 +1,56 @@
 import "../../styles/date-panel/TimeBookingWindow.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import TimeSelector from "./TimeSelector"
 import {Toaster, toast} from 'sonner'
+import addToAvailability from "../../scripts/addToAvailability";
 
 export default function TimeBookingWindow(props) {
-  const [startTime, setStartTime] = useState({ time: "9:00", am: true });
-  const [endTime, setEndTime] = useState({ time: "5:00", am: false });
+
+  // startTime, endTime all in minutes
+  const [startTime, setStartTime] = useState(0);
+  const [endTime, setEndTime] = useState(0);
+  const input1 = useRef(null);
+  const input2 = useRef(null);
+
+  let startAM = startTime < 720;
+  let endAM = endTime < 720;
+
+  // Sync start time with end time 
+  // e.g. if start time is PM then end time must be PM too
+  useEffect(() => {
+    if (!startAM && endAM) {
+      setEndTime((prev) => prev + 60 * 12);
+    }
+  }, [startTime]);
 
   useEffect(() => {
-    if (!startTime.am && endTime.am) {
-      setEndTime((prev) => ({ ...prev, am: false }));
+    if (endAM && !startAM) {
+      setStartTime((prev) => prev - 60 * 12);
     }
-  }, [startTime.am]);
-
-  // Sync start time's AM/PM with end time
-  useEffect(() => {
-    if (endTime.am && !startTime.am) {
-      setStartTime((prev) => ({ ...prev, am: true }));
-    }
-  }, [endTime.am]);
+  }, [endTime]);
 
   const addHandler = () => {
-    toast.success("Time added");
+
+    if (input1.current && input2.current){
+      let b1 = input1.current.validity.valid;
+      let b2 = input2.current.validity.valid;
+      let validInput = b1 && b2;
+      if (validInput){
+        
+        let status = addToAvailability(startTime, endTime);
+        if (status === 0) 
+          toast.success("Time added");
+        else if (status === 1)
+          toast.error("Start time must be before end time")
+        else if (status === 2)
+          toast.warning("Time already exists");
+
+        console.log(localStorage.getItem("avail"));
+      }
+      else{
+        toast.error("Invalid time format. Must be in form XX:XX");
+      }
+    }
   }
   return (
     <>
@@ -42,13 +71,15 @@ export default function TimeBookingWindow(props) {
         </div>
         <div className = "time-selectbox">
             
-            <TimeSelector name = "Start time" setTime = {setStartTime} time = {startTime.time} am = {startTime.am}/>
-            <TimeSelector name = "End time" setTime = {setEndTime} time = {endTime.time} am = {endTime.am}/>
+            <TimeSelector name = "Start time" setTime = {setStartTime} time = {startTime} reff = {input1}/>
+            <TimeSelector name = "End time" setTime = {setEndTime} time = {endTime}  reff = {input2}/>
         <button className = "bottone1" onClick = {addHandler}>
             Add Time
         </button>
       </div>
-      <Toaster richColors position="bottom-right" />
+      <Toaster richColors position="bottom-right"/>
     </>
   );
 }
+
+
