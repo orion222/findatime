@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import TimeSelector from "./TimeSelector"
 import {Toaster, toast} from 'sonner'
 import addToAvailability from "../../scripts/addToAvailability";
+import { IoChevronBackCircleSharp } from "react-icons/io5";
 
 export default function TimeBookingWindow(props) {
 
@@ -37,13 +38,13 @@ export default function TimeBookingWindow(props) {
       let validInput = b1 && b2;
       if (validInput){
         
-        let status = addToAvailability(startTime, endTime);
+        let status = addToAvailability(startTime, endTime, props.month);
         if (status === 0) 
           toast.success("Time added");
         else if (status === 1)
           toast.error("Start time must be before end time")
         else if (status === 2)
-          toast.warning("Time already exists");
+          toast.warning("Time overlaps with existing time");
 
         console.log(localStorage.getItem("avail"));
       }
@@ -61,7 +62,10 @@ export default function TimeBookingWindow(props) {
             ) +
               " " +
               props.day}
-          
+            <IoChevronBackCircleSharp 
+              className = "back-icon" 
+              onClick = {() => props.setDay(-1)}
+            />
         </div>
         <div className="time-stats">
           Overview:

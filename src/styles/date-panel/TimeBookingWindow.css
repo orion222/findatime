@@ -1,10 +1,21 @@
 
 .time-header{
-    text-align: center;
+    display: flex;
+    justify-content: center;
     font-size: 5vmin;
     font-weight: bold;
+    width: 100%;
+    position: relative;
 }
 
+.back-icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.back-icon:hover{
+    opacity: 0.5;
+}
 .overview-list{
     margin: 0;
     font-size: 2.5vmin;
